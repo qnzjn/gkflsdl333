@@ -1,0 +1,20 @@
+{
+  "name": "생활정보 - 실시간 라이프 뉴스 매거진",
+  "short_name": "생활정보",
+  "description": "생활 속 꼭 필요한 실시간 뉴스 & 알찬 생활정보",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#059669",
+  "categories": ["news", "magazines", "lifestyle"],
+  "icons": [
+    {
+      "src": "/life-icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

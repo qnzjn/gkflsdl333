@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- 그림자 및 그라데이션 필터 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="50%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="roofGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#ECFDF5" />
+    </linearGradient>
+    <linearGradient id="sproutGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#059669" flood-opacity="0.25" />
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- 배경 스퀴클 (둥근 사각형) -->
+  <rect x="10" y="10" width="100" height="100" rx="26" fill="url(#bgGrad)" filter="url(#dropShadow)" />
+
+  <!-- 상단 은은한 하이라이트 -->
+  <rect x="12" y="12" width="96" height="46" rx="24" fill="white" opacity="0.12" />
+
+  <!-- 생활을 상징하는 집 + 새싹/하트 실루엣 -->
+  <g filter="url(#softGlow)">
+    <!-- 지붕 -->
+    <path d="M60 30L34 52C32.8 53 32.2 54.6 32.6 56.1C33 57.6 34.3 58.7 35.9 58.7H40V78C40 80.2 41.8 82 44 82H76C78.2 82 80 80.2 80 78V58.7H84.1C85.7 58.7 87 57.6 87.4 56.1C87.8 54.6 87.2 53 86 52L60 30Z" 
+          fill="url(#roofGrad)" />
+
+    <!-- 집 안의 따뜻한 새싹/빛 (생활의 활력) -->
+    <!-- 줄기 -->
+    <path d="M60 74V56" stroke="url(#sproutGrad)" stroke-width="4.5" stroke-linecap="round" />
+    
+    <!-- 왼쪽 잎 -->
+    <path d="M60 63C53 63 49 57 50 50C57 50 60 56 60 63Z" fill="url(#sproutGrad)" />
+    
+    <!-- 오른쪽 잎 -->
+    <path d="M60 59C67 59 71 53 70 46C63 46 60 52 60 59Z" fill="#FBBF24" />
+  </g>
+
+  <!-- 반짝임 별 포인트 -->
+  <circle cx="83" cy="34" r="2.5" fill="#FDE68A" />
+  <circle cx="36" cy="38" r="1.8" fill="#A7F3D0" opacity="0.8" />
+</svg>
