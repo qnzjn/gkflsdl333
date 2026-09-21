@@ -13,7 +13,8 @@
       <div class="article-meta-row">
         <span class="cat-tag">{{ article.categoryName }}</span>
         <span class="date-tag">{{ article.date }}</span>
-        <span class="views-tag">조회 {{ article.views.toLocaleString() }}</span>
+        <span class="views-tag">👀 조회 {{ viewsCount.toLocaleString() }}</span>
+        <span class="likes-tag">❤️ 좋아요 {{ likesCount.toLocaleString() }}</span>
       </div>
 
       <h1 class="article-title">{{ article.title }}</h1>
@@ -55,6 +56,34 @@
       </p>
     </div>
 
+    <!-- 기사 좋아요 및 소셜 액션 섹션 -->
+    <section class="engagement-section">
+      <div class="like-box">
+        <button 
+          class="like-btn" 
+          :class="{ active: isLiked, animate: isAnimatingLike }"
+          @click="onLikeClick"
+          title="이 기사 추천하기"
+        >
+          <span class="heart-icon">{{ isLiked ? '❤️' : '🤍' }}</span>
+          <span class="like-label">좋아요</span>
+          <strong class="like-number">{{ likesCount.toLocaleString() }}</strong>
+        </button>
+        <span class="like-toast-text" v-if="likeFeedback">
+          {{ likeFeedback }}
+        </span>
+        <span class="like-guide-text" v-else>
+          {{ isLiked ? '회원님이 이 기사를 추천하셨습니다' : '기사가 도움이 되었다면 좋아요를 눌러 실시간 인기에 반영하세요!' }}
+        </span>
+      </div>
+
+      <div class="secondary-actions">
+        <button class="share-btn-large" @click="handleShare">
+          <span>🔗</span> 기사 링크 복사
+        </button>
+      </div>
+    </section>
+
     <!-- 하단 목록으로 돌아가기 버튼 -->
     <div class="article-footer-nav">
       <button class="footer-back-btn" @click="$emit('back')">
@@ -65,8 +94,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { handleImageFallback } from '../services/newsService'
+import { ref, computed, watch } from 'vue'
+import { 
+  handleImageFallback, 
+  toggleArticleLike, 
+  isArticleLiked, 
+  getArticleLikes,
+  getArticleViews
+} from '../services/newsService'
 
 const props = defineProps({
   article: Object
@@ -74,10 +109,45 @@ const props = defineProps({
 
 const emit = defineEmits(['back'])
 
+const isLiked = ref(false)
+const likesCount = ref(0)
+const viewsCount = ref(0)
+const isAnimatingLike = ref(false)
+const likeFeedback = ref('')
+
+// 기사 변경 시 상태 동기화
+watch(() => props.article, (newArticle) => {
+  if (newArticle) {
+    isLiked.value = isArticleLiked(newArticle.id)
+    likesCount.value = newArticle.likes || getArticleLikes(newArticle.id, newArticle.baseLikes)
+    viewsCount.value = newArticle.views || getArticleViews(newArticle.id, newArticle.baseViews)
+    likeFeedback.value = ''
+  }
+}, { immediate: true })
+
 const paragraphs = computed(() => {
   if (!props.article?.content) return [props.article?.summary || '']
   return props.article.content.split('\n\n')
 })
+
+function onLikeClick() {
+  if (!props.article) return
+  isAnimatingLike.value = true
+  setTimeout(() => { isAnimatingLike.value = false }, 400)
+
+  const result = toggleArticleLike(props.article.id)
+  isLiked.value = result.liked
+  likesCount.value = result.likes
+  props.article.likes = result.likes
+  props.article.isLiked = result.liked
+
+  if (result.liked) {
+    likeFeedback.value = '🎉 좋아요를 눌렀습니다! 실시간 인기 순위에 반영됩니다.'
+  } else {
+    likeFeedback.value = '좋아요가 취소되었습니다.'
+  }
+  setTimeout(() => { likeFeedback.value = '' }, 3000)
+}
 
 function handleShare() {
   if (navigator.clipboard) {
@@ -114,16 +184,22 @@ function handleShare() {
   display: flex;
   align-items: center;
   gap: 4px;
+  padding: 6px 0;
+  transition: color 0.2s;
 }
 
 .back-btn:hover {
+  color: #047857;
   text-decoration: underline;
 }
 
 .nav-cat {
   font-size: 13px;
-  color: #94a3b8;
   font-weight: 600;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
 .article-header {
@@ -133,6 +209,7 @@ function handleShare() {
 .article-meta-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 14px;
 }
@@ -141,31 +218,51 @@ function handleShare() {
   background: #ecfdf5;
   color: #059669;
   font-size: 12px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
 }
 
-.date-tag, .views-tag {
+.date-tag {
   font-size: 13px;
-  color: #94a3b8;
+  color: #64748b;
+}
+
+.views-tag {
+  font-size: 13px;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.likes-tag {
+  font-size: 13px;
+  color: #e11d48;
+  background: #ffe4e6;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 .article-title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
-  line-height: 1.4;
+  line-height: 1.45;
   color: #0f172a;
-  margin-bottom: 22px;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
+  margin: 0 0 20px;
 }
 
 .author-bar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
 }
 
 .author-profile {
@@ -175,15 +272,15 @@ function handleShare() {
 }
 
 .author-avatar {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: #0f172a;
+  background: #059669;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 15px;
 }
 
@@ -195,97 +292,205 @@ function handleShare() {
 
 .author-dept {
   font-size: 12px;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .share-action-btn {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 8px 16px;
-  border-radius: 8px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 6px 14px;
+  border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
-  color: #334155;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .share-action-btn:hover {
   background: #f1f5f9;
+  border-color: #94a3b8;
 }
 
 .article-main-photo {
-  width: 100%;
-  height: 420px;
-  border-radius: 16px;
+  margin: 24px 0;
+  border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 28px;
   background: #0f172a;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-
-@media (max-width: 680px) {
-  .article-main-photo {
-    height: 240px;
-  }
+  border: 1px solid #e2e8f0;
 }
 
 .photo-img {
   width: 100%;
-  height: 100%;
+  max-height: 480px;
   object-fit: cover;
+  display: block;
 }
 
 .briefing-card {
-  background: #f8fafc;
-  border-left: 4px solid #059669;
-  border-radius: 0 12px 12px 0;
-  padding: 20px;
-  margin-bottom: 32px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-left: 5px solid #059669;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
 }
 
 .briefing-badge {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
-  color: #059669;
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-bottom: 8px;
 }
 
 .briefing-text {
   font-size: 15px;
-  line-height: 1.7;
-  color: #334155;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #064e3b;
+  margin: 0;
 }
 
 .article-body {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.85;
-  color: #1e293b;
-  margin-bottom: 48px;
+  color: #334155;
+  letter-spacing: -0.2px;
+  margin-bottom: 40px;
 }
 
 .body-p {
-  margin-bottom: 20px;
-  letter-spacing: -0.2px;
+  margin: 0 0 18px;
   white-space: pre-line;
+}
+
+/* 기사 반응 (좋아요 + 공유) 영역 */
+.engagement-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  gap: 16px;
+  text-align: center;
+}
+
+.like-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 2px solid #cbd5e1;
+  background: white;
+  color: #334155;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.like-btn:hover {
+  border-color: #f43f5e;
+  color: #e11d48;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.12);
+}
+
+.like-btn.active {
+  background: #ffe4e6;
+  border-color: #f43f5e;
+  color: #e11d48;
+}
+
+.like-btn.animate {
+  animation: heartPop 0.35s ease-out;
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+.heart-icon {
+  font-size: 20px;
+}
+
+.like-number {
+  color: #e11d48;
+  font-size: 17px;
+}
+
+.like-guide-text {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.like-toast-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 4px 12px;
+  border-radius: 20px;
+  animation: fadeIn 0.2s;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.share-btn-large {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.share-btn-large:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
 }
 
 .article-footer-nav {
   text-align: center;
-  padding-top: 32px;
-  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
 }
 
 .footer-back-btn {
-  padding: 12px 28px;
   background: #0f172a;
-  color: #ffffff;
+  color: white;
   border: none;
+  padding: 12px 28px;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.2s;
 }
 
 .footer-back-btn:hover {
@@ -293,31 +498,16 @@ function handleShare() {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 600px) {
-  .article-page-view {
-    padding: 16px 16px 60px;
-  }
   .article-title {
-    font-size: 20px;
-    line-height: 1.35;
-  }
-  .article-main-photo {
-    height: 200px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    font-size: 22px;
   }
   .article-body {
-    font-size: 16px;
-    line-height: 1.75;
-    margin-bottom: 36px;
-  }
-  .footer-back-btn {
-    width: 100%;
-    padding: 14px 20px;
+    font-size: 15px;
   }
 }
 </style>
