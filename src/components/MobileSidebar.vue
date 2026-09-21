@@ -100,15 +100,6 @@
             </button>
           </div>
 
-          <!-- 실시간 라이브 트래픽 상태 뱃지 -->
-          <div class="live-status-pill">
-            <div class="live-indicator">
-              <span class="live-pulse"></span>
-              <span>실시간 동시 접속자 <strong>{{ activeUsers.toLocaleString() }}</strong>명</span>
-            </div>
-            <span class="live-date">{{ currentDateStr }}</span>
-          </div>
-
           <!-- 뉴스 카테고리 메뉴 목록 -->
           <div class="drawer-section">
             <h4 class="section-title">뉴스 카테고리</h4>
@@ -130,28 +121,6 @@
               </li>
             </ul>
           </div>
-
-          <!-- 추가 바로가기 및 관리자 모드 진입 -->
-          <div class="drawer-section">
-            <h4 class="section-title">서비스 및 도구</h4>
-            <div class="quick-tools-list">
-              <button class="quick-tool-btn" @click="handleInstallClick">
-                <span class="tool-icon">📱</span>
-                <div class="tool-info">
-                  <span class="tool-title">모바일 앱 설치 / 홈 화면 추가</span>
-                  <span class="tool-sub">PWA 웹 앱으로 전환</span>
-                </div>
-              </button>
-              <!-- 모바일 사용자를 위한 관리자 로그인 모달 진입 버튼 -->
-              <button class="quick-tool-btn admin" @click="handleAdminClick">
-                <span class="tool-icon">🔐</span>
-                <div class="tool-info">
-                  <span class="tool-title">관리자 대시보드</span>
-                  <span class="tool-sub">보안 암호 확인 후 접속</span>
-                </div>
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- 사이드바 하단 푸터 -->
@@ -168,7 +137,6 @@
 import { computed } from 'vue'
 import LifeIcon from './LifeIcon.vue'
 import { currentUser, logoutUser } from '../composables/useAuth'
-import { activeUsers } from '../composables/useTraffic'
 import { usePwaInstall } from '../composables/usePwaInstall'
 import { articles, CATEGORIES } from '../services/newsService'
 
@@ -188,7 +156,6 @@ const emit = defineEmits([
   'selectCategory', 
   'navigateAuth', 
   'navigateProfile', 
-  'openAdminModal',
   'goMain'
 ])
 
@@ -247,11 +214,6 @@ function handleLogoutClick() {
 
 function handleInstallClick() {
   triggerInstallApp()
-  emit('close')
-}
-
-function handleAdminClick() {
-  emit('openAdminModal')
   emit('close')
 }
 </script>

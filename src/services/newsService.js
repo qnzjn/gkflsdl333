@@ -33,7 +33,6 @@ export const MASTER_NEWS_DATABASE = [
 3. 해열진통제, 소화제, 감기약, 파스 등 13개 기본 안전상비의약품은 전국 24시간 편의점에서 상시 구매할 수 있습니다.`,
     author: '생활정보 메디컬 데스크',
     thumbnail: 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 38400,
     isTop: true,
     isBreaking: true
   },
@@ -55,7 +54,6 @@ export const MASTER_NEWS_DATABASE = [
 - 헛걸음 방지 팁: 각 마트 공식 모바일 앱 또는 포털 지도에서 '방문할 점포명'을 검색하면 당일 실시간 영업 여부와 마감 시간이 상단에 표시됩니다.`,
     author: '소비자물가 취재팀',
     thumbnail: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 29500,
     isTop: false,
     isBreaking: false
   },
@@ -76,7 +74,6 @@ export const MASTER_NEWS_DATABASE = [
 2. 서민 실수요자를 위한 특례보금자리론 및 디딤돌 대출의 소득 및 주택 가격 기준 완화 여부를 국토교통부 포털에서 수시로 확인하는 것이 권장됩니다.`,
     author: '금융시장 데스크',
     thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 31200,
     isTop: false,
     isBreaking: false
   },
@@ -95,7 +92,6 @@ export const MASTER_NEWS_DATABASE = [
 또한 고금리 장기화로 영업난을 겪는 영세 소상공인들을 위해 정부 보증을 통한 연 2%대 저금리 갈아타기 대환대출 자금이 5조 원 규모로 신규 투입됩니다.`,
     author: '정치행정부',
     thumbnail: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 24300,
     isTop: false,
     isBreaking: false
   },
@@ -116,7 +112,6 @@ export const MASTER_NEWS_DATABASE = [
 - 최근 은행권이 출시한 '트래블로그', '트래블월렛' 등 해외 결제 수수료 무료 카드를 발급받으면 현지 ATM 출금 및 결제 수수료를 100% 면제받을 수 있습니다.`,
     author: '글로벌경제팀',
     thumbnail: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 22800,
     isTop: false,
     isBreaking: false
   },
@@ -141,7 +136,6 @@ export const MASTER_NEWS_DATABASE = [
 단, 포장이 부풀어 오르거나 시큼한 냄새, 침전물 분리가 일어난 경우에는 절대 섭취하지 말아야 합니다.`,
     author: '보건복지·식품안전팀',
     thumbnail: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 35600,
     isTop: false,
     isBreaking: false
   },
@@ -160,7 +154,6 @@ export const MASTER_NEWS_DATABASE = [
 BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 수 있는 위치에서도 동료에게 완벽한 찬스를 만들어주는 진정한 리더이자 완성형 공격수"라고 극찬했습니다.`,
     author: '스포츠월드팀',
     thumbnail: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 33100,
     isTop: false,
     isBreaking: false
   },
@@ -182,7 +175,6 @@ BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 �
 - 넷플릭스 및 티빙: 연휴 시작일에 맞추어 신규 대작 오리지널 시리즈 전편 일괄 공개 예정으로 안방극장이 한층 풍성해질 전망입니다.`,
     author: '엔터테인먼트팀',
     thumbnail: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 28700,
     isTop: false,
     isBreaking: false
   },
@@ -204,7 +196,6 @@ BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 �
 3. 출발 전 국가교통정보센터(its.go.kr) 또는 '로드플러스' 모바일 앱에서 고속도로 전 구간 실시간 CCTV와 돌발 사고 상황을 미리 확인할 수 있습니다.`,
     author: '교통안전팀',
     thumbnail: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 41200,
     isTop: false,
     isBreaking: true
   },
@@ -225,7 +216,6 @@ BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 �
 - 신규 이용자는 시중 10개 카드사(신한, 삼성, 현대, KB국민, 우리 등)에서 K-패스 전용 카드를 발급받아 공식 앱에 카드번호를 등록하면 즉시 혜택이 적용됩니다.`,
     author: '교통정책 취재팀',
     thumbnail: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 27900,
     isTop: false,
     isBreaking: false
   },
@@ -245,7 +235,6 @@ BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 �
 예방접종도우미 누리집(nip.kdca.go.kr)에서 주소지 상관없이 전국 2만여 개 지정 위탁의료기관을 검색하여 방문 전 백신 잔여량을 확인할 수 있습니다.`,
     author: '보건의료팀',
     thumbnail: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 30400,
     isTop: false,
     isBreaking: false
   },
@@ -265,15 +254,39 @@ BBC 축구 해설위원 트로이 디니는 "손흥민은 스스로 득점할 �
 인터파크 티켓과 티켓링크 시스템상 무통장 입금 기한을 넘긴 미입금 취소표는 매일 밤 12시(자정) 10분부터 30분 사이에 순차적으로 서버에 재방출됩니다. 이 시간대를 공략하면 꿀좌석을 확보할 가능성이 가장 높습니다.`,
     author: '스포츠데스크',
     thumbnail: 'https://images.unsplash.com/photo-1508344928928-7165b67de128?auto=format&fit=crop&w=1200&q=80',
-    baseViews: 26400,
     isTop: false,
     isBreaking: false
   }
 ]
 
+// [실제 조회수 관리]
+// 미리보기용 가짜 수치 대신, 실제 배포된 사이트에서 사용자가 클릭할 때마다 실시간으로 1씩 증가
+export function getRealViews(articleId) {
+  try {
+    const val = localStorage.getItem(`life_article_views_${articleId}`)
+    return val ? parseInt(val, 10) : 0
+  } catch (e) {
+    return 0
+  }
+}
+
+export function recordArticleView(articleId) {
+  try {
+    const nextViews = getRealViews(articleId) + 1
+    localStorage.setItem(`life_article_views_${articleId}`, nextViews.toString())
+    // 반응형 목록 즉시 갱신
+    const found = articles.value.find(a => a.id === articleId)
+    if (found) {
+      found.views = nextViews
+    }
+    return nextViews
+  } catch (e) {
+    return 1
+  }
+}
+
 /**
  * [자동 스케줄러 알고리즘]
- * 사용자가 컴퓨터를 끄고 내일 또는 며칠 뒤에 접속하더라도,
  * 현재 방문 날짜(Date)를 기준으로 하루 10개의 정확하고 신선한 기사를 자동 계산하여 발행합니다.
  */
 export function generateDailyNews(targetDate = new Date()) {
@@ -282,10 +295,7 @@ export function generateDailyNews(targetDate = new Date()) {
   const day = String(targetDate.getDate()).padStart(2, '0')
   const dateStr = `${year}.${month}.${day}`
   
-  // 날짜 기반 일일 시드 (매일 변경됨)
   const daySeed = year * 10000 + targetDate.getMonth() * 100 + targetDate.getDate()
-  
-  // 10개 기사 추출 (마스터 데이터베이스에서 날짜 시드로 순환 조합)
   const totalAvailable = MASTER_NEWS_DATABASE.length
   const dailyTen = []
   
@@ -298,9 +308,6 @@ export function generateDailyNews(targetDate = new Date()) {
     const itemIndex = (daySeed + i) % totalAvailable
     const raw = MASTER_NEWS_DATABASE[itemIndex]
     
-    // 일일 조회수 동적 변동 (기본 조회수 + 날짜별 시드 가산)
-    const dynamicViews = raw.baseViews + ((daySeed * 17 + i * 137) % 4500)
-    
     dailyTen.push({
       id: i + 1,
       category: raw.category,
@@ -310,9 +317,9 @@ export function generateDailyNews(targetDate = new Date()) {
       content: raw.content,
       author: raw.author,
       date: `${dateStr} ${timeSlots[i]}`,
-      views: dynamicViews,
-      isTop: i === 0, // 첫 번째 기사가 항상 오늘의 톱 헤드라인
-      isBreaking: i === 0 || i === 8, // 속보 뱃지 부여
+      views: getRealViews(i + 1), // 배포 후 실제 클릭 시에만 증가
+      isTop: i === 0,
+      isBreaking: i === 0 || i === 8,
       thumbnail: raw.thumbnail
     })
   }
@@ -347,27 +354,10 @@ export function handleImageFallback(event, category = 'all') {
   }
 }
 
-// 오늘 날짜 기사 로드 및 캐시
+// 오늘 날짜 기사 로드
 function getOrInitTodayArticles() {
   const now = new Date()
-  const todayKey = `life_news_articles_v6_${now.getFullYear()}_${now.getMonth() + 1}_${now.getDate()}`
-  
-  const cached = localStorage.getItem(todayKey)
-  if (cached) {
-    try {
-      const parsed = JSON.parse(cached)
-      if (Array.isArray(parsed) && parsed.length === 10) {
-        return parsed
-      }
-    } catch (e) {}
-  }
-
-  // 오늘 날짜 기사 자동 생성 및 저장
   const { articles: freshDaily } = generateDailyNews(now)
-  try {
-    localStorage.setItem(todayKey, JSON.stringify(freshDaily))
-  } catch (e) {}
-  
   return freshDaily
 }
 
@@ -377,7 +367,4 @@ export const articles = ref(getOrInitTodayArticles())
 export function refreshDailyArticles() {
   const { articles: fresh } = generateDailyNews(new Date())
   articles.value = fresh
-  const now = new Date()
-  const todayKey = `life_news_articles_v6_${now.getFullYear()}_${now.getMonth() + 1}_${now.getDate()}`
-  localStorage.setItem(todayKey, JSON.stringify(fresh))
 }

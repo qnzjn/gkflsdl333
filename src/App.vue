@@ -34,15 +34,8 @@
             </div>
           </div>
 
-          <!-- 헤더 우측: 라이브 뱃지, 앱 설치 버튼, 프로필 아이콘 -->
+          <!-- 헤더 우측: 날짜, 프로필 아이콘 -->
           <div class="header-right">
-            <!-- 실시간 동시 접속자 수 라이브 뱃지 -->
-            <div class="live-traffic-tag">
-              <span class="live-pulse-dot"></span>
-              <span class="traffic-text-full">실시간 <strong>{{ activeUsers.toLocaleString() }}</strong>명 이용 중</span>
-              <span class="traffic-text-compact"><strong>{{ (activeUsers / 10000).toFixed(1) }}만</strong>명</span>
-            </div>
-            
             <span class="header-date">{{ currentDateStr }}</span>
 
             <!-- 프로필 아이콘 및 드롭다운 메뉴 (로그인/회원가입 포함) -->
@@ -167,7 +160,7 @@
       />
     </div>
 
-    <!-- 3. 모바일 햄버거 슬라이드 사이드바 (요청 기능) -->
+    <!-- 3. 모바일 햄버거 슬라이드 사이드바 -->
     <MobileSidebar 
       :isOpen="isMobileSidebarOpen"
       :selectedCategory="selectedCategory"
@@ -175,17 +168,10 @@
       @selectCategory="handleCategoryClick"
       @navigateAuth="goToAuth"
       @navigateProfile="goToProfile"
-      @openAdminModal="isLoginModalOpen = true"
       @goMain="goToHome"
     />
 
-    <!-- 4. PWA 앱 설치 바텀시트 / 모달 (요청 기능) -->
-    <AppInstallModal 
-      :isOpen="showInstallModal" 
-      @close="showInstallModal = false"
-    />
-
-    <!-- 5. Alt+L 보안 관리자 비밀번호 입력 모달 (모바일 사이드바 버튼과도 연동) -->
+    <!-- 4. Alt+L 보안 관리자 비밀번호 입력 모달 -->
     <AdminLoginModal 
       :isOpen="isLoginModalOpen" 
       :masterPassword="masterPassword"
@@ -209,9 +195,7 @@ import NewsMagazine from './components/NewsMagazine.vue'
 import UserProfilePage from './components/UserProfilePage.vue'
 import MobileSidebar from './components/MobileSidebar.vue'
 import MobileBottomNav from './components/MobileBottomNav.vue'
-import AppInstallModal from './components/AppInstallModal.vue'
 import { currentUser, logoutUser } from './composables/useAuth'
-import { activeUsers } from './composables/useTraffic'
 import { usePwaInstall } from './composables/usePwaInstall'
 
 const currentDateStr = computed(() => {

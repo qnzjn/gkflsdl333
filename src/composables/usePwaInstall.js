@@ -23,9 +23,7 @@ export function initPwa() {
 
   // 3. Android/Chrome/Edge PWA 설치 준비 이벤트 리스너 등록
   window.addEventListener('beforeinstallprompt', (e) => {
-    // 기본 브라우저 배너 방지
     e.preventDefault()
-    // 프롬프트 이벤트 저장
     deferredPrompt.value = e
     isInstallable.value = true
   })
@@ -35,25 +33,16 @@ export function initPwa() {
     isInstalled.value = true
     isInstallable.value = false
     deferredPrompt.value = null
-    console.log('생활정보 앱이 성공적으로 설치되었습니다!')
   })
 }
 
-// 앱 설치 함수 실행
+// 버튼 누르면 복잡한 창 없이 즉시 원클릭 네이티브 앱 설치 프롬프트 실행
 export async function triggerInstallApp() {
-  // 이미 설치되어 스탠드얼론 모드인 경우
   if (isInstalled.value) {
     alert('✅ 이미 생활정보 앱으로 실행 중입니다!')
     return
   }
 
-  // iOS인 경우 가이드 모달 표시
-  if (isIOS.value) {
-    showInstallModal.value = true
-    return
-  }
-
-  // Android / Chrome / Edge에서 네이티브 설치 프롬프트가 준비된 경우
   if (deferredPrompt.value) {
     try {
       deferredPrompt.value.prompt()
@@ -63,12 +52,12 @@ export async function triggerInstallApp() {
       }
       deferredPrompt.value = null
     } catch (err) {
-      console.warn('PWA prompt error:', err)
-      showInstallModal.value = true
+      alert('브라우저 메뉴(⋮)에서 [홈 화면에 추가] 또는 [앱 설치]를 선택해 주세요.')
     }
+  } else if (isIOS.value) {
+    alert('📱 아이폰 사파리(Safari) 하단의 [공유] 아이콘을 누른 후 [홈 화면에 추가]를 선택하시면 즉시 앱으로 설치됩니다!')
   } else {
-    // 프롬프트가 바로 지원되지 않는 브라우저나 데스크톱에서는 안내 모달 표시
-    showInstallModal.value = true
+    alert('📱 브라우저 메뉴(⋮)에서 [홈 화면에 추가] 또는 [앱 설치]를 누르시면 스마트폰에 바로 설치됩니다!')
   }
 }
 

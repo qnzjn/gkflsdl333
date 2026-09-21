@@ -141,7 +141,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { articles, CATEGORIES, handleImageFallback } from '../services/newsService'
+import { articles, CATEGORIES, handleImageFallback, recordArticleView } from '../services/newsService'
 import ArticleDetailView from './ArticleDetailView.vue'
 
 const props = defineProps({
@@ -189,6 +189,7 @@ function getCategoryCount(catId) {
 }
 
 function selectArticle(article) {
+  recordArticleView(article.id)
   currentSelectedArticle.value = article
 }
 </script>
