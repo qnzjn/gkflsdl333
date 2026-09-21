@@ -34,8 +34,15 @@
             </div>
           </div>
 
-          <!-- 헤더 우측: 날짜, 프로필 아이콘 -->
+          <!-- 헤더 우측: 실시간 접속자 수, 날짜, 프로필 아이콘 -->
           <div class="header-right">
+            <!-- 실시간 이용자 수 (12,666명 실시간 연동) -->
+            <div class="live-traffic-tag" title="현재 사이트 실시간 동시 이용자 수">
+              <span class="live-pulse-dot"></span>
+              <span class="traffic-text-full">실시간 <strong>{{ activeUsers.toLocaleString() }}</strong>명 이용 중</span>
+              <span class="traffic-text-compact"><strong>{{ activeUsers.toLocaleString() }}</strong>명</span>
+            </div>
+
             <span class="header-date">{{ currentDateStr }}</span>
 
             <!-- 프로필 아이콘 및 드롭다운 메뉴 (로그인/회원가입 포함) -->
@@ -197,6 +204,7 @@ import MobileSidebar from './components/MobileSidebar.vue'
 import MobileBottomNav from './components/MobileBottomNav.vue'
 import { currentUser, logoutUser } from './composables/useAuth'
 import { usePwaInstall } from './composables/usePwaInstall'
+import { activeUsers } from './composables/useTraffic'
 
 const currentDateStr = computed(() => {
   const d = new Date()
